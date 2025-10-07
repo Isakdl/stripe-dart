@@ -13,6 +13,7 @@ import 'src/resources/portal_session.dart';
 import 'src/resources/price.dart';
 import 'src/resources/product.dart';
 import 'src/resources/refund.dart';
+import 'src/resources/setup_intent.dart';
 import 'src/resources/subscription.dart';
 import 'src/resources/subscription_item.dart';
 
@@ -48,6 +49,9 @@ class Stripe {
   /// https://stripe.com/docs/api/payment_intents
   final PaymentIntentResource paymentIntent;
 
+  /// https://stripe.com/docs/api/setup_intents
+  final SetupIntentResource setupIntent;
+
   /// https://stripe.com/docs/api/prices
   final PriceResource price;
 
@@ -76,16 +80,17 @@ class Stripe {
 
   @visibleForTesting
   Stripe.withClient(this.client)
-      : checkoutSession = CheckoutSessionResource(client),
-        portalSession = PortalSessionResource(client),
-        customer = CustomerResource(client),
-        refund = RefundResource(client),
-        paymentIntent = PaymentIntentResource(client),
-        price = PriceResource(client),
-        product = ProductResource(client),
-        subscription = SubscriptionResource(client),
-        subscriptionItem = SubscriptionItemResource(client),
-        subscriptionSchedule = SubscriptionScheduleResource(client),
-        charge = ChargeResource(client),
-        balanceTransaction = BalanceTransactionResource(client);
+    : checkoutSession = CheckoutSessionResource(client),
+      portalSession = PortalSessionResource(client),
+      customer = CustomerResource(client),
+      refund = RefundResource(client),
+      paymentIntent = PaymentIntentResource(client),
+      setupIntent = SetupIntentResource(client),
+      price = PriceResource(client),
+      product = ProductResource(client),
+      subscription = SubscriptionResource(client),
+      subscriptionItem = SubscriptionItemResource(client),
+      subscriptionSchedule = SubscriptionScheduleResource(client),
+      charge = ChargeResource(client),
+      balanceTransaction = BalanceTransactionResource(client);
 }
