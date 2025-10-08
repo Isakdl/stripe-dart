@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:stripe/messages.dart';
 
 import '../client.dart';
@@ -14,8 +15,19 @@ class CustomerResource extends Resource<Customer> {
   }
 
   Future<Customer> retrieve(String customerId) async {
-    final map = await get('customers/$customerId');
-    return Customer.fromJson(map);
+    final response = await get('customers/$customerId');
+    if (response['deleted'] == true) {
+      throw DioException(
+        type: DioExceptionType.badResponse,
+        requestOptions: RequestOptions(path: 'customers/$customerId'),
+        response: Response(
+          statusCode: 404,
+          data: response,
+          requestOptions: RequestOptions(path: 'customers/$customerId'),
+        ),
+      );
+    }
+    return Customer.fromJson(response);
   }
 
   Future<Customer> update(UpdateCustomerRequest request) async {
