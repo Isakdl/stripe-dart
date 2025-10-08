@@ -24,6 +24,10 @@ class CustomerResource extends Resource<Customer> {
     return Customer.fromJson(response);
   }
 
+  Future<void> remove(String customerId) async {
+    await delete('customers/$customerId');
+  }
+
   Future<DataList<Customer>> search({
     /// https://docs.stripe.com/search#query-fields-for-customers
     required String queryString,
