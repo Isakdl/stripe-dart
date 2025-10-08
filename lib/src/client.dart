@@ -53,18 +53,10 @@ class Client {
     final Map<String, dynamic>? data,
     final String? idempotencyKey,
   }) async {
-    try {
-      final response = await dio.post<Map<String, dynamic>>(path,
-          data: data,
-          options: _createRequestOptions(idempotencyKey: idempotencyKey));
-      return processResponse(response);
-    } on DioException catch (e) {
-      var message = e.message ?? '';
-      if (e.response?.data != null) {
-        message += '${e.response!.data}';
-      }
-      throw InvalidRequestException(message);
-    }
+    final response = await dio.post<Map<String, dynamic>>(path,
+        data: data,
+        options: _createRequestOptions(idempotencyKey: idempotencyKey));
+    return processResponse(response);
   }
 
   /// Makes a DELETE request to the Stripe API
@@ -73,18 +65,10 @@ class Client {
     final Map<String, dynamic>? data,
     final String? idempotencyKey,
   }) async {
-    try {
-      final response = await dio.delete<Map<String, dynamic>>(path,
-          data: data,
-          options: _createRequestOptions(idempotencyKey: idempotencyKey));
-      return processResponse(response);
-    } on DioException catch (e) {
-      var message = e.message ?? '';
-      if (e.response?.data != null) {
-        message += '${e.response!.data}';
-      }
-      throw InvalidRequestException(message);
-    }
+    final response = await dio.delete<Map<String, dynamic>>(path,
+        data: data,
+        options: _createRequestOptions(idempotencyKey: idempotencyKey));
+    return processResponse(response);
   }
 
   /// Makes a get request to the Stripe API
